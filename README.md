@@ -27,6 +27,11 @@ frontend/
       middleware.ts  # Route protection and redirects
       ...
 ```
+## Library
+
+1. ShadCN UI สำหรับทำตัว UI
+2. Lucide-React สำหรับ ICON
+3. Tailwind CSS สำหรับจัดการ CSS
 
 ## Getting Started
 

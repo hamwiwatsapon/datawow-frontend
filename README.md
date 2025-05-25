@@ -35,7 +35,7 @@ frontend/
 2. **Set environment variables:**
    - Create a `.env.local` file and add:
      ```
-     NEXT_PUBLIC_API_URL=http://your-api-url
+     NEXT_PUBLIC_API_URL=http://your-api-url (http://localhost:4444)
      ```
 
 3. **Run the development server:**

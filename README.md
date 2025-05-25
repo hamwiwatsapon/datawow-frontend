@@ -69,3 +69,5 @@ frontend/
 
 ## 🙋‍♂️ Author
 Developed by Wiwatsapon - for testing interview DataWoW
+
+# ขอ Feedback ด้วยนะครับถ้าเป็นไปได้

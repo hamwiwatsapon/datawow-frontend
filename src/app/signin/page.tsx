@@ -4,7 +4,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { Dot } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-
+import Cookies from "js-cookie";
 export default function Home() {
   const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(true);
@@ -14,11 +14,11 @@ export default function Home() {
   // If user is already logged in, redirect to home
   useEffect(() => {
     const checkUserCookie = async () => {
-      const cookieItem = await cookieStore.get("userData");
-      if (cookieItem && cookieItem.value) {
+      const cookieItem = Cookies.get("userData");
+      if (cookieItem) {
         try {
           // Decode before parsing
-          const decoded = decodeURIComponent(cookieItem.value);
+          const decoded = decodeURIComponent(cookieItem);
           const userData = JSON.parse(decoded);
           if (userData) {
             login(userData);

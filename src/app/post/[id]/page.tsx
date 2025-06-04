@@ -7,14 +7,20 @@ import Link from 'next/link';
 import CommentBlock from '@/components/CommentBlock';
 import CommentButton from '@/components/CommentButton';
 
-interface Props {
-  params: {
-    id: string;
-  };
+type Params = Promise<{ id: string }>
+
+export async function generateMetadata(props: {
+  params: Params
+}) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const params = await props.params
 }
-const PostPage = async ({ params }: Props) => {
-  const { id } = params;
-  const post = await fetchPostByID(id); // Assuming fetchPostByID is defined and returns a promise that resolves to a Post object
+
+const PostPage = async (props: {
+  params: Params
+}) => {
+  const params = await props.params
+  const post = await fetchPostByID(params.id); // Assuming fetchPostByID is defined and returns a promise that resolves to a Post object
   return (
     <div className='flex flex-col bg-gray-100 h-full w-full'>
       <div className='flex flex-col items-center h-full bg-white w-full py-6 px-4 md:px-20 gap-10'>
@@ -60,7 +66,7 @@ const PostPage = async ({ params }: Props) => {
               </div>
             )}
           </div>
-          <CommentButton postId={id} />
+          <CommentButton postId={params.id} />
           <div className='flex flex-col gap-4'>
             {post.comments.map((comment) => (
               <CommentBlock

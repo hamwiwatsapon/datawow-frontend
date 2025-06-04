@@ -1,3 +1,5 @@
+import Cookies from 'js-cookie';
+
 type LoginResponse = {
   id: string;
   username: string;
@@ -22,11 +24,11 @@ const Login = async (username: string): Promise<LoginResponse> => {
     }
 
     const data: LoginResponse = await response.json();
-    cookieStore.set({
-      name: 'userData',
-      value: JSON.stringify(data),
-      expires: Math.floor((Date.now() + 60 * 60 * 8000) / 1000), // 8 hour
+    Cookies.set('userData', JSON.stringify(data), {
+      expires: 1 / 3, // ~8 hours (8 / 24)
+      path: '/',
     });
+
     return data;
   } catch (error) {
     console.error('Error during login:', error);

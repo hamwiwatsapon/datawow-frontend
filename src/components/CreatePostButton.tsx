@@ -17,7 +17,7 @@ import { createPost } from "@/api/post";
 import { useRouter } from "next/navigation";
 
 
-const CreatePostButton = ({ userId }: { userId?: string }) => {
+const CreatePostButton = ({ userId, refetch }: { userId?: string, refetch: () => void }) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [category, setCategory] = useState("");
@@ -46,6 +46,7 @@ const CreatePostButton = ({ userId }: { userId?: string }) => {
       })
       .finally(() => {
         router.refresh();
+        refetch();
       })
   }
 

@@ -19,16 +19,17 @@ function OurBlogPage() {
 
   const { user } = useAuth();
 
+  const fetchData = async () => {
+    try {
+      const response = await fetchPosts(selectedCategory || '', searchDebounce, user?.id);
+      setPosts(response);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+      setPosts([]);
+    }
+  };
+
   React.useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetchPosts(selectedCategory || '', searchDebounce, user?.id);
-        setPosts(response);
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-        setPosts([]);
-      }
-    };
     fetchData();
   }, [selectedCategory, searchDebounce]);
 
@@ -46,7 +47,7 @@ function OurBlogPage() {
           />
         </div>
         <SelectCategory onSelect={(value) => setSelectedCategory(value)} />
-        <CreatePostButton userId={user?.id} />
+        <CreatePostButton userId={user?.id} refetch={fetchData} />
       </div>
       <div className='flex flex-col items-center rounded-xl h-full bg-white w-full'>
         {

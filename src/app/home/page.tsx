@@ -20,34 +20,35 @@ function HomePage() {
 
   const { user } = useAuth();
 
+  const fetchData = async () => {
+    try {
+      const response = await fetchPosts(selectedCategory || '', searchDebounce);
+      setPosts(response);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+      setPosts([]);
+    }
+  };
+
   React.useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetchPosts(selectedCategory || '', searchDebounce);
-        setPosts(response);
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-        setPosts([]);
-      }
-    };
     fetchData();
   }, [selectedCategory, searchDebounce]);
 
   return (
-    <div className='flex flex-col bg-gray-100 px-2 md:px-32'>
-      <div className='flex flex-row justify-between items-center pb-4'>
-        <div className="relative h-10 w-auto flex flex-row items-center">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 z-10 " size={20} />
+    <div className='flex flex-col bg-gray-100 h-full w-full px-10 md:px-32'>
+      <div className='flex flex-row gap-5 items-center pb-4'>
+        <div className="relative h-10 w-full flex flex-row items-center">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 z-10" />
           <Input
             type="text"
             placeholder="Search"
             onChange={(e) => setSearch(e.target.value)}
             value={search}
-            className="pl-10 pr-3 py-2 text-md text-black w-full border border-white rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#6E23DD] focus:border-transparent text-sm md:text-base"
+            className="pl-10 pr-3 py-2 text-md text-black w-full border border-white rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#6E23DD] focus:border-transparent"
           />
         </div>
         <SelectCategory onSelect={(value) => setSelectedCategory(value)} />
-        <CreatePostButton userId={user?.id} />
+        <CreatePostButton userId={user?.id} refetch={fetchData} />
       </div>
       <div className='flex flex-col items-center rounded-xl bg-white'>
         {

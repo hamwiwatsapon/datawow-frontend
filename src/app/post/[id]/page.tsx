@@ -13,7 +13,7 @@ interface Props {
   };
 }
 const PostPage = async ({ params }: Props) => {
-  const { id } = await params;
+  const { id } = params;
   const post = await fetchPostByID(id); // Assuming fetchPostByID is defined and returns a promise that resolves to a Post object
   return (
     <div className='flex flex-col bg-gray-100 h-full w-full'>
